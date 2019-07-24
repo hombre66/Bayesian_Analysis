@@ -34,10 +34,9 @@ ATT = Series([ATTS[8], ATTS[10]]).values
 #To run all variables use
 #ATT = ATTS.values
 
-##############################################################
-# Trace parameters influence quality of posterior distribution
-# and Sigma as well
-##############################################################
+##########################################################################
+# Trace and Samples parameters influence quality of posterior distribution
+##############################################################################
 TUNE = 1000
 SAMPLES = 500
 
