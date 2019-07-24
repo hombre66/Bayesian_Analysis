@@ -111,7 +111,7 @@ Y_OUTPUT = shared(Y.values) # numpy array
 
 ########################################
 # Model definition
-# MEASURE = exp(ALPHA)*X**B
+# MEASURE = exp(ALPHA)*X**BETA
 # Log(MEASURE) = ALPHA+BETA*log(X)
 ########################################
 
