@@ -53,7 +53,7 @@ F_BASENAME = f"-({LIMIT})-{SAMPLES}-{TUNE}-{F_ATT}-{MEASURE}"
 # Load the DATASET, LIMIT/cat zero values and Profile input data
 ############################################################################
 GDC = Gdc()
-GDC.login('user@gooddata.com')
+GDC.login('stanislav.vohnik+pp@gooddata.com')
 
 ######################################################
 # Downloading Variables Report Data From GDC Workspace
@@ -117,18 +117,18 @@ Y_OUTPUT = shared(Y.values) # numpy array
 with Model() as cost_model:
     # Priors for unknown cost model parameters
 
-    ALPHA = Exponential('ALPHA', 5)
-    BETA = Normal('BETA', MU=0.0, sigma=1, shape=len(ATT))
-    SIGMA = HalfNormal('sigma', sigma=1)
+    ALPHA = Exponential('ALPHA', 0.1)
+    BETA = Normal('BETA', mu=0.0, sigma=1, shape=len(ATT))
+    SIGMA = HalfNormal('SIGMA', sigma=1)
 
     # Model
     MU = ALPHA + dot(X, BETA)
 
     # Likelihood (sampling distribution) of observations
-    Y_OBS = Normal('Y_OBS', MU=MU, sigma=SIGMA, observed=Y_OUTPUT)
+    Y_OBS = Normal('Y_OBS', mu=MU, sigma=SIGMA, observed=Y_OUTPUT)
 
 with cost_model:
-    TRACE = sample(SAMPLES, TUNE=TUNE, cores=6)
+    TRACE = sample(SAMPLES, tune=TUNE, cores=6)
     traceplot(TRACE)
 
 with cost_model:
@@ -154,4 +154,4 @@ print('*'*80+'\n'+'*'*80)
 print(f"SAMPLES={SAMPLES}; TUNE={TUNE}; attributes: '{', '.join(ATT)}'")
 print(f"'ModelCost:{(exp(Y_).sum())}, 'ObservedCost': {(PP[MEASURE].sum())}, 'delta':{_DELTA}%")
 print('*'*80+'\n'+'*'*80)
-# SUMMARY
+SUMMARY
