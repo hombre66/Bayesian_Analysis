@@ -69,9 +69,9 @@ MRR.replace(to_replace=0.0, value=LIMIT, inplace=True)
 print('Done Downloading Reports Data From GDC Workspace')
 
 #Create Order Out of Chaos
-COLUMNS = {i:sub(r'[\s\W\.]', '_', i).lower() for i in sorted(PP.COLUMNS)}
-PP.rename(COLUMNS=COLUMNS, inplace=True)
-PP.rename(COLUMNS={'workspace_cost___v4':'workspace_cost'}, inplace=True)
+COLUMNS = {i:sub(r'[\s\W\.]', '_', i).lower() for i in sorted(PP.columns)}
+PP.rename(columns=COLUMNS, inplace=True)
+PP.rename(columns={'workspace_cost___v4':'workspace_cost'}, inplace=True)
 
 #Computation of another metric "Workspace Cost Simple"
 PP['comp_time'] = PP.sj_task_time_last7d_sec+PP.etl_task_time_last7d_sec+PP.sli_task_time_last7d_sec
@@ -83,7 +83,7 @@ PP['all_size_gb'] = PP.workspace_size_gb + PP.etl_input_size_gb
 
 #Setting proper datatypes
 NUMERICAL = PP.select_dtypes(include=['float', 'bool'])
-CATEGORICAL = list(set(PP.COLUMNS) - set(NUMERICAL))
+CATEGORICAL = list(set(PP.columns) - set(NUMERICAL))
 DTYPE = {**{i:'float32' for i in NUMERICAL},
          **{i:'str' for i in CATEGORICAL}}
 PP = PP.astype(DTYPE)
