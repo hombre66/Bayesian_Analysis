@@ -54,7 +54,7 @@ F_BASENAME = f"-({LIMIT})-{SAMPLES}-{TUNE}-{F_ATT}-{MEASURE}"
 # Load the DATASET, LIMIT/cat zero values and Profile input data
 ##############################################
 GDC = Gdc()
-GDC.login('stanislav.vohnik+PP@gooddata.com')
+GDC.login('user@gooddata.com')
 
 ######################################################
 # Downloading Variables Report Data From GDC Workspace
